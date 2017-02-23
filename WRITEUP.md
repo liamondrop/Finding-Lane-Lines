@@ -35,21 +35,21 @@ This became step 0 of my pipeline. Running the rest of the pipeline on these fil
 
 _Masking out all non-yellow and non-white pixels, converting to grayscale and applying gaussian blur._
 
-<img src="./output_images/0_hsv.png" width="33%">
-<img src="./output_images/1_gray.png" width="33%">
-<img src="./output_images/2_blur.png" width="33%">
+<img src="./output_images/0_hsv.png" width="48%">
+<img src="./output_images/1_gray.png" width="48%">
+<img src="./output_images/2_blur.png" width="48%">
 
 _Canny edge detection and applying polygon mask_
 
-<img src="./output_images/3_canny.png" width="33%">
-<img src="./output_images/4a_masked.png" width="33%">
-<img src="./output_images/4_masked.png" width="33%">
+<img src="./output_images/3_canny.png" width="48%">
+<img src="./output_images/4a_masked.png" width="48%">
+<img src="./output_images/4_masked.png" width="48%">
 
 _Finding line segments with Hough transform, fitting a continuous line to each side, and applying to original image_
 
-<img src="./output_images/5_hough_lines.png" width="33%">
-<img src="./output_images/6_draw_lines.png?1" width="33%">
-<img src="./output_images/final.png" width="33%">
+<img src="./output_images/5_hough_lines.png" width="48%">
+<img src="./output_images/6_draw_lines.png?1" width="48%">
+<img src="./output_images/final.png" width="48%">
 
 #### Procedure for Extracting 2 Continuous Lines from a Set of Line Segments
 
