@@ -7,7 +7,7 @@
 **_Final output still from the image processing pipeline_**
 
 ## **Project Overview**
----------------
+
 This project contains the results from completing Project 1 of the Udacity Self-Driving Car Engineer Nanodegree.
 
 The goal of the project is to create an image processing pipeline using basic computer vision techniques, including Canny edge detection and Hough transforms, to correctly identify lane lines on the road. The pipeline should be robust enough to work on a series of images (video) with varying conditions, including cars on the road, color variations from shadows.
