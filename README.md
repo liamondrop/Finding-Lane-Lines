@@ -4,7 +4,7 @@
 
 <img src="./output_images/final.png" title="Final Image" />
 
-**_Final output still from the image processing pipeline_**
+_Final output still from the image processing pipeline_
 
 ### **Project Overview**
 
