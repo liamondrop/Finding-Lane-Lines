@@ -12,15 +12,15 @@ My initial image processing pipeline consisted of 6 steps:
   1. Apply Canny edge detection
   1. Apply polygon mask to eliminate non relevant noise
   1. Apply probabilistic Hough transform to detect line segments
-  1. Separate the line segments into Left and Right buckets, and fit a single line to each bucket of points *([discussed further below](#drawing-lines))* 
+  1. Separate the line segments into Left and Right buckets, and fit a single line to each bucket of points *([discussed further below](#drawing-lines))*
 
-This pipeline was very effective at detecting the lanes for the `solidWhiteRight.mp4` and `solidYellowLeft.mp4` videos, rendering solid lines that tracked the lanes in the videos with minimal jitter. However, when I attempted to apply this processing to the `challenge.mp4` video, the lane lines danced chaotically across the images.
+This pipeline was very effective at detecting the lanes for the `solidWhiteRight.mp4` and `solidYellowLeft.mp4` input videos, rendering solid lines that tracked the lanes in the videos with minimal jitter. However, when I attempted to apply this processing to the `challenge.mp4` video, the lane lines danced chaotically across the images.
 
 #### Analysis
 
-By outputting the lines applied to the Canny edge step of the process to video, it became clear that the Hough transform was detecting lines on the cars in adjacent lanes as well as in shadows on the road and other objects passing through the scene.
+By outputting the Canny edge step of the process to video and overlaying the lines, it became clear that the Hough transform was detecting lines on the cars in adjacent lanes as well as a considerable number of edges found in shadows on the road and other objects passing through the scene.
 
-My first attempt at resolving this was to twiddle the parameters of my pipeline, tweaking the threshold values of the Canny edge detector and fine tuning the shape of my polygon mask. This worked fairly well at eliminating the noise from nearby cars, but the lines still jumped wildly when shadows passed through the scene. It also struck me as a very brittle and overfitted solution, which would fail as soon as the pipeline was applied to slightly varying conditions.
+My first attempt at resolving this was to twiddle the parameters of my pipeline, tweaking the threshold values of the Canny edge detector and fine tuning the shape of my polygon mask. This worked fairly well at eliminating the noise from nearby cars, but the drawn lines still jumped wildly when shadows occluded the lanes. It also struck me as a very brittle and overfitted solution, which would fail as soon as the pipeline was applied to slightly varying conditions.
 
 What I needed was a way to separate signal from noise. The only things in the scene I cared about were the lane lines. If I could amplify these, while eliminating everything else, the pipeline should operate smoothly.
 
@@ -28,10 +28,9 @@ What I needed was a way to separate signal from noise. The only things in the sc
 
 The answer was to define a range of color values for yellow and white and use these to mask out everything that did not fall into these ranges, using the `cv2.inRange()`.
 
-Converting the image to the HSV color space made it easy to define a range of hues, saturations and darkness values that I wanted to keep. I sampled various yellows and whites from the lanes in all three videos to come up with ranges from darkest to lightest that lanes were likely to be, whether or not they were in shadow. Everything that did not fall within these ranges was masked out, leaving a mostly black image with very clear lane lines.
+Converting the image to the HSV color space made it easy to define a range of hues, saturations and darkness values that I wanted to keep. Using an eyedropper tool, I sampled various yellows and whites from the lanes in all three videos to come up with realistic color ranges into which the lanes were likely to fall, including those occluded by shadows. Everything that did not fall within these ranges was masked out, leaving a mostly black image, greatly simplified, with very clear lane lines.
 
 This became step 0 of my pipeline. Running the rest of the pipeline on these filtered images produced much smoother results.
-
 
 _Masking out all non-yellow and non-white pixels, converting to grayscale and applying gaussian blur._
 
