@@ -12,7 +12,7 @@ My initial image processing pipeline consisted of 6 steps:
   1. Apply Canny edge detection
   1. Apply polygon mask to eliminate non relevant noise
   1. Apply probabilistic Hough transform to detect line segments
-  1. Separate the line segments into Left and Right buckets, and fit a single line to each bucket of points *(discussed further below)*
+  1. Separate the line segments into Left and Right buckets, and fit a single line to each bucket of points *([discussed further below](#drawing-lines))* 
 
 This pipeline was very effective at detecting the lanes for the `solidWhiteRight.mp4` and `solidYellowLeft.mp4` videos, rendering solid lines that tracked the lanes in the videos with minimal jitter. However, when I attempted to apply this processing to the `challenge.mp4` video, the lane lines danced chaotically across the images.
 
@@ -51,7 +51,7 @@ _Finding line segments with Hough transform, fitting a continuous line to each s
 <img src="./output_images/6_draw_lines.png?1" width="48%">
 <img src="./output_images/final.png" width="48%">
 
-#### Procedure for Extracting 2 Continuous Lines from a Set of Line Segments
+#### <a name="drawing-lines"></a>Procedure for Extracting 2 Continuous Lines from a Set of Line Segments
 
 In order to derive 2 solid lane lines from the cloud of line segments found by the Hough transform, the following steps are taken:
 
