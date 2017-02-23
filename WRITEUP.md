@@ -50,7 +50,10 @@ _Finding line segments with Hough transform, fitting a continuous line to each s
 <img src="./output_images/6_draw_lines.png?1" width="48%">
 <img src="./output_images/final.png" width="48%">
 
-#### <a name="drawing-lines"></a>Procedure for Extracting 2 Continuous Lines from a Set of Line Segments
+-----
+<a name="drawing-lines"></a>
+
+## **Procedure for Extracting 2 Continuous Lines from a Set of Line Segments**
 
 In order to derive 2 solid lane lines from the cloud of line segments found by the Hough transform, the following steps are taken:
 
@@ -61,8 +64,9 @@ In order to derive 2 solid lane lines from the cloud of line segments found by t
     - Feed the lists `X` and `Y` into the `numpy.polyfit` function with a degree of `1`. This will fit a straight line to the points by minimizing the squared error with respect to the points in `X` and `Y`.
     - Pass the result of the polyfit function to `numpy.poly1d`, which returns a function of the line `f(x) = mx + b`. That is, when given a value for `x`, it will output the corresponding `y` value to plot a point on the line that best fits the line segments. From there, it is possible to plot a line from, say, the midpoint of the image to the left or right edge that closely matches the slope and y-intercept of the lane line.
 
+-----
 
-### 2. Potential Shortcomings
+### 2. Potential Pipeline Shortcomings
 
 - While the pipeline is fairly robust to noise and color variation, it does tend to jitter if the best fit to the line segments found in a given frame is a line whose slope deviates significantly from the frame preceding it. Worse yet, if the Hough transform and filtering produces no line segments at all, the line will simply disappear.
 
@@ -70,7 +74,9 @@ In order to derive 2 solid lane lines from the cloud of line segments found by t
 
 - If the car were to change lanes, the results would be chaotic during the lane change.
 
-### 3. Possible Improvements
+-----
+
+### 3. Possible Pipeline Improvements
 
 - One possible improvement would be to create a buffer of slope and y-intercept values for the last N frames and to overlay a line whose parameters are a rolling mean of these values. This should smooth out the jitter and give the pipeline a "memory" so that if no line segments are detected, it could continue to overlay the last calculated line until another is found.
 
